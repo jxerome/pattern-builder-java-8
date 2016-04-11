@@ -1,7 +1,7 @@
 package com.mainaud.essai.pattern.builder.model_1_pojo;
 
 import com.mainaud.essai.pattern.builder.api.*;
-import com.mainaud.essai.pattern.builder.report.Printer;
+import com.mainaud.essai.pattern.builder.report.Afficheur;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -147,9 +147,9 @@ public class Main1 {
         Région1 tourainne = new Région1();
 
 
-        try (Printer printer = new Printer(System.out)) {
-            printer.printAppellation(aocVouvray);
-            printer.printAppellation(aocChinon);
+        try (Afficheur afficheur = new Afficheur(System.out)) {
+            afficheur.printAppellation(aocVouvray);
+            afficheur.printAppellation(aocChinon);
         }
     }
 }

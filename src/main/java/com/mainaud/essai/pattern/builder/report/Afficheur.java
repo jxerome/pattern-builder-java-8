@@ -15,18 +15,18 @@ import java.util.stream.Stream;
 /**
  * Affiche les informations utiles sur le vin.
  */
-public class Printer implements Closeable {
+public class Afficheur implements Closeable {
     private final PrintWriter printer;
 
-    public Printer(OutputStream out) {
+    public Afficheur(OutputStream out) {
         this(new OutputStreamWriter(out));
     }
 
-    public Printer(PrintWriter printer) {
+    public Afficheur(PrintWriter printer) {
         this.printer = Objects.requireNonNull(printer);
     }
 
-    public Printer(Writer out) {
+    public Afficheur(Writer out) {
         this(new PrintWriter(Objects.requireNonNull(out)));
     }
 

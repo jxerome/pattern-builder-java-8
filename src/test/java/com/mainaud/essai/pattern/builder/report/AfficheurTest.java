@@ -18,9 +18,9 @@ import static com.mainaud.essai.pattern.builder.api.TeneurEnSucre.BRUT;
 import static com.mainaud.essai.pattern.builder.api.TeneurEnSucre.SEC;
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class PrinterTest {
+public class AfficheurTest {
     private StringWriter sw = new StringWriter();
-    private Printer printer = new Printer(sw);
+    private Afficheur afficheur = new Afficheur(sw);
 
     @BeforeMethod
     public void init() {
@@ -60,7 +60,7 @@ public class PrinterTest {
         producteur.setDescription("Un bon producteur");
         producteur.setVins(Arrays.asList(vin, vin2));
 
-        printer.printProducteur(producteur, 1);
+        afficheur.printProducteur(producteur, 1);
 
         assertThat(sw.toString()).isEqualTo(
                 "    Productions réunies\n" +
@@ -100,7 +100,7 @@ public class PrinterTest {
             add(chenin);
         }});
         vin.setPrix(55.0);
-        printer.printVin(vin, 3);
+        afficheur.printVin(vin, 3);
 
         assertThat(sw.toString()).isEqualTo(
                 "            Domaine de la Rouletière Sec\n" +
