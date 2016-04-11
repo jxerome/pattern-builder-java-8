@@ -5,7 +5,7 @@ import com.mainaud.essai.pattern.builder.api.Vin;
 
 import java.util.List;
 
-public class ProducteurPojo implements Producteur {
+public class Producteur1 implements Producteur {
     private String nom;
 
     private String description;

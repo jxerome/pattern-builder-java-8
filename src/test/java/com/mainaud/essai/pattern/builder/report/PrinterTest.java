@@ -1,9 +1,9 @@
 package com.mainaud.essai.pattern.builder.report;
 
 import com.mainaud.essai.pattern.builder.api.Cépage;
-import com.mainaud.essai.pattern.builder.model_1_pojo.CépagePojo;
-import com.mainaud.essai.pattern.builder.model_1_pojo.ProducteurPojo;
-import com.mainaud.essai.pattern.builder.model_1_pojo.VinPojo;
+import com.mainaud.essai.pattern.builder.model_1_pojo.Cépage1;
+import com.mainaud.essai.pattern.builder.model_1_pojo.Producteur1;
+import com.mainaud.essai.pattern.builder.model_1_pojo.Vin1;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
@@ -30,10 +30,10 @@ public class PrinterTest {
 
     @Test
     public void printProducteurShouldPrintProducteur() {
-        CépagePojo chenin = new CépagePojo();
+        Cépage1 chenin = new Cépage1();
         chenin.setNom("Chenin");
 
-        VinPojo vin = new VinPojo();
+        Vin1 vin = new Vin1();
         vin.setNom("Domaine de la Rouletière Sec");
         vin.setDescription("J'aime bien\nce vin.");
         vin.setCouleur(BLANC);
@@ -44,7 +44,7 @@ public class PrinterTest {
         }});
         vin.setPrix(55.0);
 
-        VinPojo vin2 = new VinPojo();
+        Vin1 vin2 = new Vin1();
         vin2.setNom("Vigneau-Chevreau");
         vin2.setDescription("J'adore !\nce vin.");
         vin2.setCouleur(BLANC);
@@ -55,7 +55,7 @@ public class PrinterTest {
         }});
         vin2.setPrix(38.5);
 
-        ProducteurPojo producteur = new ProducteurPojo();
+        Producteur1 producteur = new Producteur1();
         producteur.setNom("Productions réunies");
         producteur.setDescription("Un bon producteur");
         producteur.setVins(Arrays.asList(vin, vin2));
@@ -87,10 +87,10 @@ public class PrinterTest {
 
     @Test
     public void printVinShouldPrintVin() {
-        CépagePojo chenin = new CépagePojo();
+        Cépage1 chenin = new Cépage1();
         chenin.setNom("Chenin");
 
-        VinPojo vin = new VinPojo();
+        Vin1 vin = new Vin1();
         vin.setNom("Domaine de la Rouletière Sec");
         vin.setDescription("J'aime bien\nce vin.");
         vin.setCouleur(BLANC);

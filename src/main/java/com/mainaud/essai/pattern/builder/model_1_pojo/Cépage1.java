@@ -3,7 +3,7 @@ package com.mainaud.essai.pattern.builder.model_1_pojo;
 import com.mainaud.essai.pattern.builder.api.Cépage;
 
 
-public class CépagePojo implements Cépage {
+public class Cépage1 implements Cépage {
     private String nom;
     private String description;
 

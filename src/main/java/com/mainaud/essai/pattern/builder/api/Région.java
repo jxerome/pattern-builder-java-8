@@ -10,5 +10,5 @@ public interface Région extends Vinicole {
 
     Collection<Région> getSousRégions();
 
-    Collection<Appellation> getAppelation();
+    Collection<Appellation> getAppellations();
 }

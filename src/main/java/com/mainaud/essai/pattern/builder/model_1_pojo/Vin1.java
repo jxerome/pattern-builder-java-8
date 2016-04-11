@@ -4,7 +4,7 @@ import com.mainaud.essai.pattern.builder.api.*;
 
 import java.util.Collection;
 
-public class VinPojo implements Vin {
+public class Vin1 implements Vin {
     private String nom;
 
     private String description;

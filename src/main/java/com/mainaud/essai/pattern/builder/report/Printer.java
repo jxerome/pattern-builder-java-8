@@ -1,11 +1,9 @@
 package com.mainaud.essai.pattern.builder.report;
 
 import com.mainaud.essai.pattern.builder.api.*;
+import com.mainaud.essai.pattern.builder.model_1_pojo.Appellation1;
 
-import java.io.Closeable;
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.io.Writer;
+import java.io.*;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.Objects;
@@ -20,12 +18,16 @@ import java.util.stream.Stream;
 public class Printer implements Closeable {
     private final PrintWriter printer;
 
+    public Printer(OutputStream out) {
+        this(new OutputStreamWriter(out));
+    }
+
     public Printer(PrintWriter printer) {
         this.printer = Objects.requireNonNull(printer);
     }
 
     public Printer(Writer out) {
-        printer = new PrintWriter(Objects.requireNonNull(out));
+        this(new PrintWriter(Objects.requireNonNull(out)));
     }
 
     @Override
@@ -38,6 +40,11 @@ public class Printer implements Closeable {
         printVin(vin, 0);
     }
 
+    public void printAppellation(Appellation1 appellation) {
+        printAppellation(appellation, 0);
+    }
+
+
     void printAppellation(Appellation appellation, int level) {
         String indent = indent(level);
         printer.printf("%1$s%2$s %3$s%n", indent, appellation.getNature(), appellation.getNom());
@@ -45,10 +52,14 @@ public class Printer implements Closeable {
         if (appellation.getRégion() != null) {
             printer.printf("%1$sRégion: %2$s", printNomHiérarchique(appellation.getRégion()));
         }
+
+        printer.printf("%1$sSuperficie: %2$,d ha%n", indent, appellation.getSuperficie());
+        printer.printf("%1$sProduction: %2$s%n", indent, appellation.getProductionAnnuelle());
         printListe("Cépages", level, appellation.getCépages(), Cépage::getNom);
         printListe("Couleurs", level, appellation.getCouleurs(), Couleur::name);
         printListe("Effervescences", level, appellation.getEffervescences(), Effervescence::name);
         printListe("Teneurs en sucre", level, appellation.getTeneursEnSucre(), TeneurEnSucre::name);
+        printer.printf("%1$sProducteurs:%n", indent);
         printIterable(appellation.getProducteurs(), level + 1, this::printProducteur);
     }
 
@@ -59,13 +70,33 @@ public class Printer implements Closeable {
         return région.getNom();
     }
 
+    public void printProducteur(Producteur producteur) {
+        printProducteur(producteur, 0);
+    }
+
     void printProducteur(Producteur producteur, int level) {
         String indent = indent(level);
-        printer.printf("%1$s%2$s%n", indent, producteur.getNom());
+        printer.printf("%1$s%2$s%n", indent, producteur.getNom().toUpperCase());
         printDescription(() -> producteur.getDescription(), level);
         printer.printf("%1$sVins%n", indent);
 
         printIterable(producteur.getVins(), level + 1, this::printVin);
+
+    }
+
+    void printVin(Vin vin, int level) {
+        String indent = indent(level);
+        printer.printf("%1$s%2$s%n", indent, vin.getNom().toUpperCase());
+        printDescription(() -> vin.getDescription(), level);
+        printListe("Caractéristiques",
+            level,
+            Stream.of(vin.getCouleur(), vin.getEffervescence(), vin.getTeneurEnSucre())
+                .filter(Objects::nonNull)
+                .collect(Collectors.toList()),
+            s -> s.name()
+        );
+        printListe("Cépages", level, vin.getCépages(), Cépage::getNom);
+        printer.printf("%1$sPrix: %2$.2f €%n", indent, vin.getPrix());
     }
 
     private <T> void printIterable(Iterable<T> iter, int level, PrintMethod<T> p) {
@@ -79,20 +110,12 @@ public class Printer implements Closeable {
         }
     }
 
-    void printVin(Vin vin, int level) {
-        String indent = indent(level);
-        printer.printf("%1$s%2$s%n", indent, vin.getNom());
-        printDescription(() -> vin.getDescription(), level);
-        printer.printf("%1$sCaractéristiques: %2$s %3$s %4$s%n", indent, vin.getCouleur(), vin.getEffervescence(), vin.getTeneurEnSucre());
-        printListe("Cépages", level, vin.getCépages(), Cépage::getNom);
-        printer.printf("%1$sPrix: %2$.2f €%n", indent, vin.getPrix());
-    }
-
-    <T> void printListe(String champ, int level, Collection<? extends T> collection, Function<T, String> stringifier) {
+    private <T> void printListe(String champ, int level, Collection<? extends T> collection, Function<T, String> stringifier) {
         if (collection != null && !collection.isEmpty()) {
             printer.printf("%1$s%2$s: %3$s%n", indent(level), champ, collection.stream().map(stringifier).collect(Collectors.joining(", ")));
         }
     }
+
 
     private void printDescription(Supplier<String> getter, int level) {
         String description = getter.get();

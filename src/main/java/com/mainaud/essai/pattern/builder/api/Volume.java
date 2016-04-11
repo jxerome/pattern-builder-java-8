@@ -2,14 +2,16 @@ package com.mainaud.essai.pattern.builder.api;
 
 public final class Volume {
     public static enum Unité {
-        L(1.0),
-        HL(100.0),
-        BOUTEILLE(0.75);
+        L(1.0, "l"),
+        HL(100.0, "hl"),
+        BOUTEILLE(0.75, "btl.");
 
         private final double coef;
+        private final String symbole;
 
-        private Unité(double coef) {
+        private Unité(double coef, String symbole) {
             this.coef = coef;
+            this.symbole = symbole;
         }
     }
 
@@ -35,5 +37,10 @@ public final class Volume {
 
     public Unité getUnité() {
         return unité;
+    }
+
+    @Override
+    public String toString() {
+        return String.format("%,.0f %s", valeur, unité);
     }
 }

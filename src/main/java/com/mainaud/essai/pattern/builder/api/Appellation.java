@@ -1,5 +1,6 @@
 package com.mainaud.essai.pattern.builder.api;
 
+import java.util.Collection;
 import java.util.List;
 
 /**
@@ -11,4 +12,10 @@ public interface Appellation extends Vinicole {
     Région getRégion();
 
     List<Producteur> getProducteurs();
+
+    Collection<Couleur> getCouleurs();
+
+    Collection<Effervescence> getEffervescences();
+
+    Collection<TeneurEnSucre> getTeneursEnSucre();
 }

@@ -12,11 +12,5 @@ public interface Vinicole {
 
     Volume getProductionAnnuelle();
 
-    Set<Couleur> getCouleurs();
-
-    Set<TeneurEnSucre> getTeneursEnSucre();
-
-    Set<Effervescence> getEffervescences();
-
     Collection<Cépage> getCépages();
 }
