@@ -41,6 +41,6 @@ public final class Volume {
 
     @Override
     public String toString() {
-        return String.format("%,.0f %s", valeur, unité);
+        return String.format("%,.0f %s", valeur, unité.symbole);
     }
 }

@@ -63,25 +63,25 @@ public class AfficheurTest {
         afficheur.printProducteur(producteur, 1);
 
         assertThat(sw.toString()).isEqualTo(
-                "    Productions réunies\n" +
-                        "    Description\n" +
-                        "        Un bon producteur\n" +
-                        "    Vins\n" +
-                        "        Domaine de la Rouletière Sec\n" +
-                        "        Description\n" +
-                        "            J'aime bien\n" +
-                        "            ce vin.\n" +
-                        "        Caractéristiques: BLANC TRANQUILLE SEC\n" +
-                        "        Cépages: Chenin\n" +
-                        "        Prix: 55,00 €\n" +
-                        "        ----\n" +
-                        "        Vigneau-Chevreau\n" +
-                        "        Description\n" +
-                        "            J'adore !\n" +
-                        "            ce vin.\n" +
-                        "        Caractéristiques: BLANC MOUSSEUX BRUT\n" +
-                        "        Cépages: Chenin\n" +
-                        "        Prix: 38,50 €\n"
+                "    PRODUCTIONS RÉUNIES\n" +
+                    "        Description:\n" +
+                    "            Un bon producteur\n" +
+                    "        Vins:\n" +
+                    "            DOMAINE DE LA ROULETIÈRE SEC\n" +
+                    "                Description:\n" +
+                    "                    J'aime bien\n" +
+                    "                    ce vin.\n" +
+                    "                Caractéristiques: BLANC, TRANQUILLE, SEC\n" +
+                    "                Cépages: Chenin\n" +
+                    "                Prix: 55,00 €\n" +
+                    "            ----\n" +
+                    "            VIGNEAU-CHEVREAU\n" +
+                    "                Description:\n" +
+                    "                    J'adore !\n" +
+                    "                    ce vin.\n" +
+                    "                Caractéristiques: BLANC, MOUSSEUX, BRUT\n" +
+                    "                Cépages: Chenin\n" +
+                    "                Prix: 38,50 €\n"
         );
     }
 
@@ -103,12 +103,12 @@ public class AfficheurTest {
         afficheur.printVin(vin, 3);
 
         assertThat(sw.toString()).isEqualTo(
-                "            Domaine de la Rouletière Sec\n" +
-                        "            Description\n" +
-                        "                J'aime bien\n" +
-                        "                ce vin.\n" +
-                        "            Caractéristiques: BLANC TRANQUILLE SEC\n" +
-                        "            Cépages: Chenin\n" +
-                        "            Prix: 55,00 €\n");
+                "            DOMAINE DE LA ROULETIÈRE SEC\n" +
+                    "                Description:\n" +
+                    "                    J'aime bien\n" +
+                    "                    ce vin.\n" +
+                    "                Caractéristiques: BLANC, TRANQUILLE, SEC\n" +
+                    "                Cépages: Chenin\n" +
+                    "                Prix: 55,00 €\n");
     }
 }

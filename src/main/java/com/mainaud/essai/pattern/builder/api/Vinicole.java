@@ -6,6 +6,8 @@ import java.util.Set;
 public interface Vinicole {
     String getNom();
 
+    Région getRégion();
+
     String getDescription();
 
     int getSuperficie();

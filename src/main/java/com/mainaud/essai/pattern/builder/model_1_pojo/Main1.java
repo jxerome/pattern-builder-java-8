@@ -35,8 +35,8 @@ public class Main1 {
 
         Vin1 vigneauClosRougemont = new Vin1();
         vigneauClosRougemont.setNom("Clos de Rougemont");
-        vigneauClosRougemont.setDescription("C’est sur ce site exceptionnel que Saint Martin planta les premiers pieds de vignes au 4ème siècle. \n" +
-            "Le chenin est donc ici dans le berceau de l’appellation Vouvray.");
+        vigneauClosRougemont.setDescription("C'est sur ce site exceptionnel que Saint Martin planta les premiers pieds de vignes au 4ème siècle. \n" +
+            "Le chenin est donc ici dans le berceau de l'appellation Vouvray.");
         vigneauClosRougemont.setCouleur(BLANC);
         vigneauClosRougemont.setEffervescence(TRANQUILLE);
         vigneauClosRougemont.setTeneurEnSucre(SEC);
@@ -47,7 +47,7 @@ public class Main1 {
 
         Vin1 vigneauPétillant = new Vin1();
         vigneauPétillant.setNom("Pétillant");
-        vigneauPétillant.setDescription("Ce vin est en quelque sorte l’ancêtre parmi les fines bulles de Vouvray, car il est produit depuis le 19ème siècle.\n" +
+        vigneauPétillant.setDescription("Ce vin est en quelque sorte l'ancêtre parmi les fines bulles de Vouvray, car il est produit depuis le 19ème siècle.\n" +
             "Récolté sur des jeunes vignes, on lui réserve souvent les meilleures cuvées destinées aux effervescents en \n" +
             "utilisant des sucres résiduels naturels pour son élaboration.");
         vigneauPétillant.setCouleur(BLANC);
@@ -60,9 +60,9 @@ public class Main1 {
 
         Producteur1 vigeauChevreau = new Producteur1();
         vigeauChevreau.setNom("Vigneau-Chevreau");
-        vigeauChevreau.setDescription("Depuis sa fondation en 1875, le domaine situé au cœur de l’appellation Vouvray s’est agrandi à travers \n" +
+        vigeauChevreau.setDescription("Depuis sa fondation en 1875, le domaine situé au cœur de l'appellation Vouvray s'est agrandi à travers \n" +
             "cinq générations, passant de 5 à 33 hectares. Grâce à sa structure familiale, il lui a été possible \n" +
-            "de transmettre toute l’expérience de la culture de la vigne, et de la vinification.");
+            "de transmettre toute l'expérience de la culture de la vigne, et de la vinification.");
         vigeauChevreau.setVins(Arrays.asList(vigneauClosRougemont, vigneauPétillant));
 
         Vin1 rouletièreSec = new Vin1();
@@ -87,7 +87,7 @@ public class Main1 {
         Appellation1 aocVouvray = new Appellation1();
         aocVouvray.setNom("Vouvray");
         aocVouvray.setDescription("L'AOC Vouvray est issue de la sous-région Touraine. Le vignoble est implanté sur la rive droite de la Loire,\n" +
-                "des environs de Tours jusqu’à Noisay, ce qui représente environ 2 200 hectares.");
+                "des environs de Tours jusqu'à Noisay, ce qui représente environ 2 200 hectares.");
         aocVouvray.setNature(AOC);
         aocVouvray.setCouleurs(new HashSet<Couleur>() {{ add(BLANC);  }});
         aocVouvray.setCépages(Arrays.asList(chenin, pineauLoire));
@@ -119,23 +119,24 @@ public class Main1 {
 
 
         Vin1 croixBoissée = new Vin1();
-        closNoyer.setNom("La Croix Boissée");
-        closNoyer.setDescription("Ce Chinon composé à 100% de cabernet franc est issu d’un coteau calcaire de tuffeau blanc \n" +
-            "modelé par une forte érosion et d’une petite parcelle de vignes âgées de 10 à 40 ans.");
-        closNoyer.setCouleur(ROUGE);
-        closNoyer.setPrix(13.6);
+        croixBoissée.setNom("La Croix Boissée");
+        croixBoissée.setDescription("Ce Chinon composé à 100% de cabernet franc est issu d'un coteau calcaire de tuffeau blanc \n" +
+            "modelé par une forte érosion et d'une petite parcelle de vignes âgées de 10 à 40 ans.");
+        croixBoissée.setCouleur(ROUGE);
+        croixBoissée.setPrix(20.96);
 
 
         Producteur1 domaineBernardBaudry = new Producteur1();
         domaineBernardBaudry.setNom("Bernard Baudry");
-        domaineBernardBaudry.setDescription("");
-        domaineBernardBaudry.setVins(Arrays.asList(closNoyer));
+        domaineBernardBaudry.setDescription("Situé à Cravant les coteaux sur l'appellation Chinon, ce domaine en cours de \n" +
+            "conversion au mode d'agriculture biologique, cultive 30 hectares de vignes");
+        domaineBernardBaudry.setVins(Arrays.asList(croixBoissée));
 
 
         Appellation1 aocChinon = new Appellation1();
         aocChinon.setNom("Chinon");
-        aocChinon.setDescription("L'AOC Chinon voit son aire d’appellation se situer à 40km au sud-est de Tours, elle appartient donc à la \n" +
-                "sous-région Touraine. Le climat, océanique à l’ouest, est de forte influence continentale à l’est.");
+        aocChinon.setDescription("L'AOC Chinon voit son aire d'appellation se situer à 40km au sud-est de Tours, elle appartient donc à la \n" +
+                "sous-région Touraine. Le climat, océanique à l'ouest, est de forte influence continentale à l'est.");
         aocChinon.setNature(AOC);
         aocChinon.setCouleurs(new HashSet<Couleur>() {{ add(ROUGE); add(BLANC); add(ROSÉ); }});
         aocChinon.setCépages(Arrays.asList(chenin));
@@ -144,12 +145,25 @@ public class Main1 {
         aocChinon.setProductionAnnuelle(Volume.de(112_000, HL));
         aocChinon.setProducteurs(Arrays.asList(domaineGrosBois, domaineBernardBaudry));
 
-        Région1 tourainne = new Région1();
+        Région1 touraine = new Région1();
+        touraine.setNom("Touraine");
+        touraine.setDescription("La sous-région Touraine appartient à la région Vallée de la Loire. Elle a la particularité d'avoir \n" +
+            "une aire viticole fréquemment redéfinie et par conséquent un climat et des sols variables. Tout ceci, en plus de \n" +
+            "la diversité des encépagements et des modes de vinification, donne des vins souvent originaux.");
+        touraine.setAppellations(Arrays.asList(aocVouvray, aocChinon));
+        touraine.setCépages(Arrays.asList());
+        touraine.setSuperficie(13_000);
+        touraine.setProductionAnnuelle(Volume.de(700_000, HL));
 
+        Région1 valléeLoire = new Région1();
+        valléeLoire.setNom("Vallée de Loire");
+        valléeLoire.setDescription("Déjà présent dans la Vallée de Loire à l’époque gallo-romaine, le vin représente un véritable modèle \n" +
+            "historique et culturel favorisé ensuite par l’impulsion des grandes abbayes au Ve siècle. Il est partie intégrante \n" +
+            "de la culture du « bien vivre » qui s’est développée dans la région.");
+        valléeLoire.setSousRégions(Arrays.asList(touraine));
 
         try (Afficheur afficheur = new Afficheur(System.out)) {
-            afficheur.printAppellation(aocVouvray);
-            afficheur.printAppellation(aocChinon);
+            afficheur.printRégion(valléeLoire);
         }
     }
 }

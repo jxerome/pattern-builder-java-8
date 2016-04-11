@@ -1,21 +1,21 @@
 package com.mainaud.essai.pattern.builder.model_1_pojo;
 
-import com.mainaud.essai.pattern.builder.api.*;
+import com.mainaud.essai.pattern.builder.api.Appellation;
+import com.mainaud.essai.pattern.builder.api.Cépage;
+import com.mainaud.essai.pattern.builder.api.Région;
+import com.mainaud.essai.pattern.builder.api.Volume;
 
 import java.util.List;
-import java.util.Set;
 
 public class Région1 implements Région {
     private String nom;
     private String description;
-    private NatureAppellation nature;
-    private Région parent;
+    private Région région;
     private List<Région> sousRégions;
     private List<Appellation> appellations;
     private int superficie;
     private Volume productionAnnuelle;
     private List<Cépage> cépages;
-
 
 
     @Override
@@ -36,21 +36,13 @@ public class Région1 implements Région {
         this.description = description;
     }
 
-    public NatureAppellation getNature() {
-        return nature;
-    }
-
-    public void setNature(NatureAppellation nature) {
-        this.nature = nature;
-    }
-
     @Override
-    public Région getParent() {
-        return parent;
+    public Région getRégion() {
+        return région;
     }
 
-    public void setParent(Région parent) {
-        this.parent = parent;
+    public void setRégion(Région région) {
+        this.région = région;
     }
 
     @Override

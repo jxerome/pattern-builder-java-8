@@ -9,8 +9,6 @@ import java.util.List;
 public interface Appellation extends Vinicole {
     NatureAppellation getNature();
 
-    Région getRégion();
-
     List<Producteur> getProducteurs();
 
     Collection<Couleur> getCouleurs();
