@@ -28,13 +28,14 @@ import static com.mainaud.essai.pattern.builder.model.Volume.Unité.HL;
 public class Main {
     public static void main(String[] args) throws IOException {
         Cépage chenin = new Cépage();
-        chenin.setNom("Chenin");
-        Cépage pineauLoire = new Cépage();
-        pineauLoire.setNom("Pineau de la Loire");
+        chenin.setNom("chenin");
+        chenin.setDescription("Cépage phare de la Vallée de la Loire, le chenin, aussi appelé pinot de la Loire (pineau). \n" +
+            "Il serait originaire de l’Anjou où il aurait été cultivé par les moines de l’Abbaye de Saint-Maur située entre \n" +
+            "Angers et Saumur dès le 6ème siècle.");
         Cépage cabernetFranc = new Cépage();
-        cabernetFranc.setNom("Cabernet franc");
+        cabernetFranc.setNom("cabernet franc");
         Cépage cabernetSauvignon = new Cépage();
-        cabernetSauvignon.setNom("Cabernet sauvignon");
+        cabernetSauvignon.setNom("cabernet sauvignon");
 
         Vin vigneauClosRougemont = new Vin();
         vigneauClosRougemont.setNom("Clos de Rougemont");
@@ -87,7 +88,7 @@ public class Main {
                 "des environs de Tours jusqu'à Noisay, ce qui représente environ 2 200 hectares.");
         aocVouvray.setNature(AOC);
         aocVouvray.setCouleurs(new HashSet<Couleur>() {{ add(BLANC);  }});
-        aocVouvray.setCépages(Arrays.asList(chenin, pineauLoire));
+        aocVouvray.setCépages(Arrays.asList(chenin));
         aocVouvray.setEffervescences(new HashSet<Effervescence>() {{
             add(TRANQUILLE);
             add(PÉTILLANT);
@@ -152,12 +153,17 @@ public class Main {
         touraine.setSuperficie(13_000);
         touraine.setProductionAnnuelle(Volume.de(700_000, HL));
 
+        aocVouvray.setRégion(touraine);
+        aocChinon.setRégion(touraine);
+
         Région valléeLoire = new Région();
         valléeLoire.setNom("Vallée de Loire");
         valléeLoire.setDescription("Déjà présent dans la Vallée de Loire à l’époque gallo-romaine, le vin représente un véritable modèle \n" +
             "historique et culturel favorisé ensuite par l’impulsion des grandes abbayes au Ve siècle. Il est partie intégrante \n" +
             "de la culture du « bien vivre » qui s’est développée dans la région.");
         valléeLoire.setSousRégions(Arrays.asList(touraine));
+
+        touraine.setRégion(valléeLoire);
 
         try (Afficheur afficheur = new Afficheur(System.out)) {
             afficheur.printRégion(valléeLoire);

@@ -51,11 +51,11 @@ public class Afficheur implements Closeable {
 
 
     void printVinicole(Vinicole vinicole, int level) {
+        String indent = indent(level);
         printDescription(vinicole.getDescription(), level);
         if (vinicole.getRégion() != null) {
-            printer.printf("%1$sRégion: %2$s", getNomHiérarchique(vinicole.getRégion()));
+            printer.printf("%1$sRégion: %2$s", indent, getNomHiérarchique(vinicole.getRégion()));
         }
-        String indent = indent(level);
         if (vinicole.getSuperficie() != 0) {
             printer.printf("%1$sSuperficie: %2$,d ha%n", indent, vinicole.getSuperficie());
         }
