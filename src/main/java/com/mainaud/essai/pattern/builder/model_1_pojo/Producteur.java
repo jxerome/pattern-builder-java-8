@@ -1,11 +1,11 @@
 package com.mainaud.essai.pattern.builder.model_1_pojo;
 
-import com.mainaud.essai.pattern.builder.api.Producteur;
-import com.mainaud.essai.pattern.builder.api.Vin;
+import com.mainaud.essai.pattern.builder.api.ProducteurLec;
+import com.mainaud.essai.pattern.builder.api.VinLec;
 
 import java.util.List;
 
-public class Producteur1 implements Producteur {
+public class Producteur implements ProducteurLec {
     private String nom;
 
     private String description;

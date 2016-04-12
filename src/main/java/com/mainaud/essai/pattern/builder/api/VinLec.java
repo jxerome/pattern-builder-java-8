@@ -1,9 +1,12 @@
 package com.mainaud.essai.pattern.builder.api;
 
-import java.util.Collection;
-import java.util.Set;
+import com.mainaud.essai.pattern.builder.model.Couleur;
+import com.mainaud.essai.pattern.builder.model.Effervescence;
+import com.mainaud.essai.pattern.builder.model.TeneurEnSucre;
 
-public interface Vin {
+import java.util.Collection;
+
+public interface VinLec {
     String getNom();
 
     String getDescription();
@@ -16,5 +19,5 @@ public interface Vin {
 
     TeneurEnSucre getTeneurEnSucre();
 
-    Collection<Cépage> getCépages();
+    Collection<? extends CépageLec> getCépages();
 }

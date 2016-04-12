@@ -1,9 +1,9 @@
 package com.mainaud.essai.pattern.builder.report;
 
-import com.mainaud.essai.pattern.builder.api.Cépage;
-import com.mainaud.essai.pattern.builder.model_1_pojo.Cépage1;
-import com.mainaud.essai.pattern.builder.model_1_pojo.Producteur1;
-import com.mainaud.essai.pattern.builder.model_1_pojo.Vin1;
+import com.mainaud.essai.pattern.builder.api.CépageLec;
+import com.mainaud.essai.pattern.builder.model_1_pojo.Cépage;
+import com.mainaud.essai.pattern.builder.model_1_pojo.Producteur;
+import com.mainaud.essai.pattern.builder.model_1_pojo.Vin;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
@@ -11,11 +11,11 @@ import java.io.StringWriter;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-import static com.mainaud.essai.pattern.builder.api.Couleur.BLANC;
-import static com.mainaud.essai.pattern.builder.api.Effervescence.MOUSSEUX;
-import static com.mainaud.essai.pattern.builder.api.Effervescence.TRANQUILLE;
-import static com.mainaud.essai.pattern.builder.api.TeneurEnSucre.BRUT;
-import static com.mainaud.essai.pattern.builder.api.TeneurEnSucre.SEC;
+import static com.mainaud.essai.pattern.builder.model.Couleur.BLANC;
+import static com.mainaud.essai.pattern.builder.model.Effervescence.MOUSSEUX;
+import static com.mainaud.essai.pattern.builder.model.Effervescence.TRANQUILLE;
+import static com.mainaud.essai.pattern.builder.model.TeneurEnSucre.BRUT;
+import static com.mainaud.essai.pattern.builder.model.TeneurEnSucre.SEC;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class AfficheurTest {
@@ -30,10 +30,10 @@ public class AfficheurTest {
 
     @Test
     public void printProducteurShouldPrintProducteur() {
-        Cépage1 chenin = new Cépage1();
+        Cépage chenin = new Cépage();
         chenin.setNom("Chenin");
 
-        Vin1 vin = new Vin1();
+        Vin vin = new Vin();
         vin.setNom("Domaine de la Rouletière Sec");
         vin.setDescription("J'aime bien\nce vin.");
         vin.setCouleur(BLANC);
@@ -44,7 +44,7 @@ public class AfficheurTest {
         }});
         vin.setPrix(55.0);
 
-        Vin1 vin2 = new Vin1();
+        Vin vin2 = new Vin();
         vin2.setNom("Vigneau-Chevreau");
         vin2.setDescription("J'adore !\nce vin.");
         vin2.setCouleur(BLANC);
@@ -55,7 +55,7 @@ public class AfficheurTest {
         }});
         vin2.setPrix(38.5);
 
-        Producteur1 producteur = new Producteur1();
+        Producteur producteur = new Producteur();
         producteur.setNom("Productions réunies");
         producteur.setDescription("Un bon producteur");
         producteur.setVins(Arrays.asList(vin, vin2));
@@ -87,10 +87,10 @@ public class AfficheurTest {
 
     @Test
     public void printVinShouldPrintVin() {
-        Cépage1 chenin = new Cépage1();
+        Cépage chenin = new Cépage();
         chenin.setNom("Chenin");
 
-        Vin1 vin = new Vin1();
+        Vin vin = new Vin();
         vin.setNom("Domaine de la Rouletière Sec");
         vin.setDescription("J'aime bien\nce vin.");
         vin.setCouleur(BLANC);

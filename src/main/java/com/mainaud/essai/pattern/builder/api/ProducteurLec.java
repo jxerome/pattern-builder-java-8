@@ -2,10 +2,10 @@ package com.mainaud.essai.pattern.builder.api;
 
 import java.util.List;
 
-public interface Producteur {
+public interface ProducteurLec {
     String getNom();
 
-    List<Vin> getVins();
+    List<? extends VinLec> getVins();
 
     String getDescription();
 }

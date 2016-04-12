@@ -1,9 +1,9 @@
 package com.mainaud.essai.pattern.builder.api;
 
-import com.mainaud.essai.pattern.builder.api.Volume;
+import com.mainaud.essai.pattern.builder.model.Volume;
 import org.testng.annotations.Test;
 
-import static com.mainaud.essai.pattern.builder.api.Volume.Unité.*;
+import static com.mainaud.essai.pattern.builder.model.Volume.Unité.*;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class VolumeTest {

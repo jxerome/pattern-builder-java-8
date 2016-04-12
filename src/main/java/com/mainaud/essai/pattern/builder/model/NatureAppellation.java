@@ -1,4 +1,4 @@
-package com.mainaud.essai.pattern.builder.api;
+package com.mainaud.essai.pattern.builder.model;
 
 public enum NatureAppellation {
     AOC, AOP, IGP;

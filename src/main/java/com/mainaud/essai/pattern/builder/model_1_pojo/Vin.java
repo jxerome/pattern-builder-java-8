@@ -1,10 +1,13 @@
 package com.mainaud.essai.pattern.builder.model_1_pojo;
 
 import com.mainaud.essai.pattern.builder.api.*;
+import com.mainaud.essai.pattern.builder.model.Couleur;
+import com.mainaud.essai.pattern.builder.model.Effervescence;
+import com.mainaud.essai.pattern.builder.model.TeneurEnSucre;
 
 import java.util.Collection;
 
-public class Vin1 implements Vin {
+public class Vin implements VinLec {
     private String nom;
 
     private String description;

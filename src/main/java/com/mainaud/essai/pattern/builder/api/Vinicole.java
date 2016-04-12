@@ -1,12 +1,13 @@
 package com.mainaud.essai.pattern.builder.api;
 
+import com.mainaud.essai.pattern.builder.model.Volume;
+
 import java.util.Collection;
-import java.util.Set;
 
 public interface Vinicole {
     String getNom();
 
-    Région getRégion();
+    RégionLec getRégion();
 
     String getDescription();
 
@@ -14,5 +15,5 @@ public interface Vinicole {
 
     Volume getProductionAnnuelle();
 
-    Collection<Cépage> getCépages();
+    Collection<? extends CépageLec> getCépages();
 }

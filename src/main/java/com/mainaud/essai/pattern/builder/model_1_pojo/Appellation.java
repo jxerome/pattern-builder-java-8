@@ -1,11 +1,12 @@
 package com.mainaud.essai.pattern.builder.model_1_pojo;
 
 import com.mainaud.essai.pattern.builder.api.*;
+import com.mainaud.essai.pattern.builder.model.*;
 
 import java.util.List;
 import java.util.Set;
 
-public class Appellation1 implements Appellation {
+public class Appellation implements AppellationLec {
     private String nom;
     private String description;
     private NatureAppellation nature;

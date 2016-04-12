@@ -1,9 +1,9 @@
 package com.mainaud.essai.pattern.builder.model_1_pojo;
 
-import com.mainaud.essai.pattern.builder.api.Cépage;
+import com.mainaud.essai.pattern.builder.api.CépageLec;
 
 
-public class Cépage1 implements Cépage {
+public class Cépage implements CépageLec {
     private String nom;
     private String description;
 

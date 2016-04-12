@@ -1,14 +1,16 @@
 package com.mainaud.essai.pattern.builder.report;
 
 import com.mainaud.essai.pattern.builder.api.*;
-import com.mainaud.essai.pattern.builder.model_1_pojo.Appellation1;
+import com.mainaud.essai.pattern.builder.model.Couleur;
+import com.mainaud.essai.pattern.builder.model.Effervescence;
+import com.mainaud.essai.pattern.builder.model.TeneurEnSucre;
+import com.mainaud.essai.pattern.builder.model_1_pojo.Appellation;
 
 import java.io.*;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.Objects;
 import java.util.function.Function;
-import java.util.function.Supplier;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -35,11 +37,11 @@ public class Afficheur implements Closeable {
         printer.close();
     }
 
-    public void printRégion(Région région) {
+    public void printRégion(RégionLec région) {
         printRégion(région, 0);
     }
 
-    void printRégion(Région région, int level) {
+    void printRégion(RégionLec région, int level) {
         printNom(région.getNom(), level);
         ++level;
         printVinicole(région, level);
@@ -60,44 +62,44 @@ public class Afficheur implements Closeable {
         if (vinicole.getProductionAnnuelle() != null) {
             printer.printf("%1$sProduction: %2$s%n", indent, vinicole.getProductionAnnuelle());
         }
-        printInlineListe("Cépages", level, vinicole.getCépages(), Cépage::getNom);
+        printInlineListe("Cépages", level, vinicole.getCépages(), CépageLec::getNom);
 
     }
 
-    public void printAppellation(Appellation1 appellation) {
+    public void printAppellation(Appellation appellation) {
         printAppellation(appellation, 0);
     }
 
-    void printAppellation(Appellation appellation, int level) {
-        printNom(appellation.getNature().name() + " " + appellation.getNom(), level);
+    void printAppellation(AppellationLec appellationLec, int level) {
+        printNom(appellationLec.getNature().name() + " " + appellationLec.getNom(), level);
         ++level;
 
-        printVinicole(appellation, level);
-        printInlineListe("Couleurs", level, appellation.getCouleurs(), Couleur::name);
-        printInlineListe("Effervescences", level, appellation.getEffervescences(), Effervescence::name);
-        printInlineListe("Teneurs en sucre", level, appellation.getTeneursEnSucre(), TeneurEnSucre::name);
-        printCollection("Producteurs", level, appellation.getProducteurs(), this::printProducteur);
+        printVinicole(appellationLec, level);
+        printInlineListe("Couleurs", level, appellationLec.getCouleurs(), Couleur::name);
+        printInlineListe("Effervescences", level, appellationLec.getEffervescences(), Effervescence::name);
+        printInlineListe("Teneurs en sucre", level, appellationLec.getTeneursEnSucre(), TeneurEnSucre::name);
+        printCollection("Producteurs", level, appellationLec.getProducteurs(), this::printProducteur);
     }
 
-    private String getNomHiérarchique(Région région) {
+    private String getNomHiérarchique(RégionLec région) {
         if (région.getRégion() != null) {
             return getNomHiérarchique(région.getRégion()) + " - " + région.getNom();
         }
         return région.getNom();
     }
 
-    public void printProducteur(Producteur producteur) {
+    public void printProducteur(ProducteurLec producteur) {
         printProducteur(producteur, 0);
     }
 
-    void printProducteur(Producteur producteur, int level) {
+    void printProducteur(ProducteurLec producteur, int level) {
         printNom(producteur.getNom(), level);
         ++level;
         printDescription(producteur.getDescription(), level);
         printCollection("Vins", level, producteur.getVins(), this::printVin);
     }
 
-    void printVin(Vin vin, int level) {
+    void printVin(VinLec vin, int level) {
         printNom(vin.getNom(), level);
         level = level + 1;
         printDescription(vin.getDescription(), level);
@@ -108,7 +110,7 @@ public class Afficheur implements Closeable {
                 .collect(Collectors.toList()),
             s -> s.name()
         );
-        printInlineListe("Cépages", level, vin.getCépages(), Cépage::getNom);
+        printInlineListe("Cépages", level, vin.getCépages(), CépageLec::getNom);
         printer.printf("%1$sPrix: %2$.2f €%n", indent(level), vin.getPrix());
     }
 

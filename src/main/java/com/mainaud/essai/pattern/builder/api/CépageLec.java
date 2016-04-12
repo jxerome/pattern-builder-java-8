@@ -1,6 +1,6 @@
 package com.mainaud.essai.pattern.builder.api;
 
-public interface Cépage {
+public interface CépageLec {
     String getNom();
     String getDescription();
 }

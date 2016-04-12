@@ -1,4 +1,4 @@
-package com.mainaud.essai.pattern.builder.api;
+package com.mainaud.essai.pattern.builder.model;
 
 public final class Volume {
     public static enum Unité {

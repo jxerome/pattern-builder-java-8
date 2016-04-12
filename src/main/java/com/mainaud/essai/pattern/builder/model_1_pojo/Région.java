@@ -1,13 +1,12 @@
 package com.mainaud.essai.pattern.builder.model_1_pojo;
 
-import com.mainaud.essai.pattern.builder.api.Appellation;
-import com.mainaud.essai.pattern.builder.api.Cépage;
-import com.mainaud.essai.pattern.builder.api.Région;
-import com.mainaud.essai.pattern.builder.api.Volume;
+import com.mainaud.essai.pattern.builder.api.CépageLec;
+import com.mainaud.essai.pattern.builder.api.RégionLec;
+import com.mainaud.essai.pattern.builder.model.Volume;
 
 import java.util.List;
 
-public class Région1 implements Région {
+public class Région implements RégionLec {
     private String nom;
     private String description;
     private Région région;
@@ -37,7 +36,7 @@ public class Région1 implements Région {
     }
 
     @Override
-    public Région getRégion() {
+    public RégionLec getRégion() {
         return région;
     }
 
@@ -54,6 +53,7 @@ public class Région1 implements Région {
         this.sousRégions = sousRégions;
     }
 
+    @Override
     public List<Appellation> getAppellations() {
         return appellations;
     }
