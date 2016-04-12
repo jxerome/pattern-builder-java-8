@@ -1,15 +1,13 @@
 package com.mainaud.essai.pattern.builder.model_1_pojo;
 
 import com.mainaud.essai.pattern.builder.api.ProducteurLec;
-import com.mainaud.essai.pattern.builder.api.VinLec;
 
 import java.util.List;
 
 public class Producteur implements ProducteurLec {
     private String nom;
-
     private String description;
-
+    private Appellation appellation;
     private List<Vin> vins;
 
     @Override
@@ -28,6 +26,15 @@ public class Producteur implements ProducteurLec {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    @Override
+    public Appellation getAppellation() {
+        return appellation;
+    }
+
+    public void setAppellation(Appellation appellation) {
+        this.appellation = appellation;
     }
 
     @Override

@@ -8,4 +8,6 @@ public interface ProducteurLec {
     List<? extends VinLec> getVins();
 
     String getDescription();
+
+    AppellationLec getAppellation();
 }

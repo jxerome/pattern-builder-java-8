@@ -1,4 +1,4 @@
-package com.mainaud.essai.pattern.builder.model_2_builder;
+package com.mainaud.essai.pattern.builder.model_3_lambda;
 
 import com.mainaud.essai.pattern.builder.api.VinLec;
 import com.mainaud.essai.pattern.builder.model.Couleur;
@@ -6,6 +6,7 @@ import com.mainaud.essai.pattern.builder.model.Effervescence;
 import com.mainaud.essai.pattern.builder.model.TeneurEnSucre;
 
 import java.util.*;
+import java.util.function.Consumer;
 
 public class Vin implements VinLec {
     private String nom;
@@ -60,14 +61,16 @@ public class Vin implements VinLec {
         return cépages;
     }
 
-    public static Builder builder() {
-        return new Builder();
+    public static Vin of(Consumer<Builder> factory) {
+        Builder builder = new Builder();
+        factory.accept(builder);
+        return builder.build();
     }
 
     public static final class Builder {
         private final Vin vin = new Vin();
 
-        public Vin build() {
+        private Vin build() {
             Objects.requireNonNull(vin.nom);
 
             vin.cépages = Collections.unmodifiableList(vin.cépages);

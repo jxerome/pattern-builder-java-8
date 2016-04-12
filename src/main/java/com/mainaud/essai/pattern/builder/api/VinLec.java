@@ -11,6 +11,8 @@ public interface VinLec {
 
     String getDescription();
 
+    ProducteurLec getProducteur();
+
     double getPrix();
 
     Couleur getCouleur();

@@ -52,10 +52,10 @@ public class Afficheur implements Closeable {
 
     void printVinicole(Vinicole vinicole, int level) {
         String indent = indent(level);
-        printDescription(vinicole.getDescription(), level);
         if (vinicole.getRégion() != null) {
-            printer.printf("%1$sRégion: %2$s", indent, getNomHiérarchique(vinicole.getRégion()));
+            printer.printf("%1$sRégion: %2$s%n", indent, getNomHiérarchique(vinicole.getRégion()));
         }
+        printDescription(vinicole.getDescription(), level);
         if (vinicole.getSuperficie() != 0) {
             printer.printf("%1$sSuperficie: %2$,d ha%n", indent, vinicole.getSuperficie());
         }
@@ -81,13 +81,6 @@ public class Afficheur implements Closeable {
         printCollection("Producteurs", level, appellationLec.getProducteurs(), this::printProducteur);
     }
 
-    private String getNomHiérarchique(RégionLec région) {
-        if (région.getRégion() != null) {
-            return getNomHiérarchique(région.getRégion()) + " - " + région.getNom();
-        }
-        return région.getNom();
-    }
-
     public void printProducteur(ProducteurLec producteur) {
         printProducteur(producteur, 0);
     }
@@ -95,20 +88,38 @@ public class Afficheur implements Closeable {
     void printProducteur(ProducteurLec producteur, int level) {
         printNom(producteur.getNom(), level);
         ++level;
+        printNomAppellation(producteur.getAppellation(), level);
         printDescription(producteur.getDescription(), level);
         printCollection("Vins", level, producteur.getVins(), this::printVin);
+    }
+
+    private void printNomAppellation(AppellationLec appellation, int level) {
+        if (appellation != null) {
+            printer.printf("%1$sAppelation: %2$s%n", indent(level), getNomHiérarchique(appellation));
+        }
+    }
+
+    private String getNomHiérarchique(Vinicole région) {
+        if (région.getRégion() != null) {
+            return getNomHiérarchique(région.getRégion()) + " - " + région.getNom();
+        }
+        return région.getNom();
     }
 
     void printVin(VinLec vin, int level) {
         printNom(vin.getNom(), level);
         level = level + 1;
+        if (vin.getProducteur() != null) {
+            printNomAppellation(vin.getProducteur().getAppellation(), level);
+            printer.printf("%1$sProducteur: %2$s%n", indent(level), vin.getProducteur().getNom());
+        }
         printDescription(vin.getDescription(), level);
         printInlineListe("Caractéristiques",
             level,
             Stream.of(vin.getCouleur(), vin.getEffervescence(), vin.getTeneurEnSucre())
                 .filter(Objects::nonNull)
                 .collect(Collectors.toList()),
-            s -> s.name()
+            Enum::name
         );
         printInlineListe("Cépages", level, vin.getCépages(), CépageLec::getNom);
         printer.printf("%1$sPrix: %2$.2f €%n", indent(level), vin.getPrix());
@@ -119,7 +130,7 @@ public class Afficheur implements Closeable {
     }
 
 
-    <T> void printCollection(String champ, int level, Collection<? extends T> collection, PrintMethod<T> p) {
+    private <T> void printCollection(String champ, int level, Collection<? extends T> collection, PrintMethod<T> p) {
         if (collection != null && !collection.isEmpty()) {
             printer.printf("%1$s%2$s:%n", indent(level), champ);
             Iterator<? extends T> it = collection.iterator();

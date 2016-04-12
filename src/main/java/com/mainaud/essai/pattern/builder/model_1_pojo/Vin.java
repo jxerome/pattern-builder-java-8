@@ -9,17 +9,12 @@ import java.util.Collection;
 
 public class Vin implements VinLec {
     private String nom;
-
     private String description;
-
+    private Producteur producteur;
     private double prix;
-
     private Couleur couleur;
-
     private Effervescence effervescence;
-
     private TeneurEnSucre teneurEnSucre;
-
     private Collection<Cépage> cépages;
 
     @Override
@@ -38,6 +33,15 @@ public class Vin implements VinLec {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    @Override
+    public Producteur getProducteur() {
+        return producteur;
+    }
+
+    public void setProducteur(Producteur producteur) {
+        this.producteur = producteur;
     }
 
     @Override

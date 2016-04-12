@@ -1,4 +1,4 @@
-package com.mainaud.essai.pattern.builder.model_2_builder;
+package com.mainaud.essai.pattern.builder.model_3_lambda;
 
 import com.mainaud.essai.pattern.builder.api.ProducteurLec;
 
@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
+import java.util.function.Consumer;
 
 public final class Producteur implements ProducteurLec {
     private String nom;
@@ -37,15 +38,16 @@ public final class Producteur implements ProducteurLec {
     }
 
 
-    public static Builder builder() {
-        return new Builder();
+    public static Producteur of(Consumer<Builder> factory) {
+        Builder builder = new Builder();
+        factory.accept(builder);
+        return builder.build();
     }
 
     public static final class Builder {
         private Producteur producteur = new Producteur();
 
-
-        public Producteur build() {
+        private Producteur build() {
             Objects.requireNonNull(producteur.nom);
             producteur.vins = Collections.unmodifiableList(producteur.vins);
             return producteur;
@@ -66,8 +68,8 @@ public final class Producteur implements ProducteurLec {
             return this;
         }
 
-        public Builder addVin(Vin vin) {
-            producteur.vins.add(vin);
+        public Builder addVin(Consumer<Vin.Builder> vin) {
+            producteur.vins.add(Vin.of(vin.andThen(v -> v.setProducteur(producteur))));
             return this;
         }
     }
