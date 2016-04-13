@@ -86,6 +86,9 @@ public final class Appellation implements AppellationLec {
     public static final class Builder {
         private Appellation appellation = new Appellation();
 
+        private Builder() {
+        }
+
         public Appellation build() {
             requireNonNull(appellation.nom);
 

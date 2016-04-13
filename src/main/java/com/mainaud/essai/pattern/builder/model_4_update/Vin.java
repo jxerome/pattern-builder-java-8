@@ -1,4 +1,4 @@
-package com.mainaud.essai.pattern.builder.model_3_lambda;
+package com.mainaud.essai.pattern.builder.model_4_update;
 
 import com.mainaud.essai.pattern.builder.api.VinLec;
 import com.mainaud.essai.pattern.builder.model.Couleur;
@@ -61,6 +61,12 @@ public class Vin implements VinLec {
         return cépages;
     }
 
+    public Vin update(Consumer<Builder> factory) {
+        Builder builder = new Builder(this);
+        factory.accept(builder);
+        return builder.build();
+    }
+
     public static Vin create(Consumer<Builder> factory) {
         Builder builder = new Builder();
         factory.accept(builder);
@@ -68,56 +74,73 @@ public class Vin implements VinLec {
     }
 
     public static final class Builder {
-        private final Vin vin = new Vin();
+        private Vin newVin = new Vin();
+        private ListBuilder<Cépage> cépages;
 
         private Builder() {
+            cépages = ListBuilder.of();
         }
 
+        private Builder(Vin oldVin) {
+            newVin.nom = oldVin.nom;
+            newVin.description = oldVin.description;
+            newVin.producteur = oldVin.producteur;
+            newVin.prix = oldVin.prix;
+            newVin.couleur = oldVin.couleur;
+            newVin.effervescence = oldVin.effervescence;
+            newVin.teneurEnSucre = oldVin.teneurEnSucre;
+            cépages = ListBuilder.of(oldVin.cépages);
+        }
+
+
         private Vin build() {
-            Objects.requireNonNull(vin.nom);
-
-            vin.cépages = Collections.unmodifiableList(vin.cépages);
-
-            return vin;
+            Objects.requireNonNull(newVin.nom);
+            newVin.cépages = cépages.build();
+            return newVin;
         }
 
         public Builder setNom(String nom) {
-            vin.nom = nom;
+            newVin.nom = nom;
             return this;
         }
 
         public Builder setDescription(String description) {
-            vin.description = description;
+            newVin.description = description;
             return this;
         }
 
         public Builder setProducteur(Producteur producteur) {
-            vin.producteur = producteur;
+            newVin.producteur = producteur;
             return this;
         }
 
         public Builder setPrix(double prix) {
-            vin.prix = prix;
+            newVin.prix = prix;
             return this;
         }
 
         public Builder setCouleur(Couleur couleur) {
-            vin.couleur = couleur;
+            newVin.couleur = couleur;
             return this;
         }
 
         public Builder setEffervescence(Effervescence effervescence) {
-            vin.effervescence = effervescence;
+            newVin.effervescence = effervescence;
             return this;
         }
 
         public Builder setTeneurEnSucre(TeneurEnSucre teneurEnSucre) {
-            vin.teneurEnSucre = teneurEnSucre;
+            newVin.teneurEnSucre = teneurEnSucre;
             return this;
         }
 
-        public Builder addCépage(Cépage cépages) {
-            vin.cépages.add(cépages);
+        public Builder addCépage(Cépage cépage) {
+            cépages.add(cépage);
+            return this;
+        }
+
+        public Builder updateCépages(Consumer<ListBuilder<Cépage>> factory) {
+            factory.accept(cépages);
             return this;
         }
     }

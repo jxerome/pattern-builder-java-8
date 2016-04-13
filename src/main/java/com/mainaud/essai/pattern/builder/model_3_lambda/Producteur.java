@@ -38,7 +38,7 @@ public final class Producteur implements ProducteurLec {
     }
 
 
-    public static Producteur of(Consumer<Builder> factory) {
+    public static Producteur create(Consumer<Builder> factory) {
         Builder builder = new Builder();
         factory.accept(builder);
         return builder.build();
@@ -46,6 +46,9 @@ public final class Producteur implements ProducteurLec {
 
     public static final class Builder {
         private Producteur producteur = new Producteur();
+
+        private Builder() {
+        }
 
         private Producteur build() {
             Objects.requireNonNull(producteur.nom);
@@ -69,7 +72,7 @@ public final class Producteur implements ProducteurLec {
         }
 
         public Builder addVin(Consumer<Vin.Builder> vin) {
-            producteur.vins.add(Vin.of(vin.andThen(v -> v.setProducteur(producteur))));
+            producteur.vins.add(Vin.create(vin.andThen(v -> v.setProducteur(producteur))));
             return this;
         }
     }

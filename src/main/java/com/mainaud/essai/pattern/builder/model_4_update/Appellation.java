@@ -1,4 +1,4 @@
-package com.mainaud.essai.pattern.builder.model_3_lambda;
+package com.mainaud.essai.pattern.builder.model_4_update;
 
 import com.mainaud.essai.pattern.builder.api.AppellationLec;
 import com.mainaud.essai.pattern.builder.model.*;
@@ -13,13 +13,13 @@ public final class Appellation implements AppellationLec {
     private String description;
     private NatureAppellation nature;
     private Région région;
-    private List<Producteur> producteurs = new ArrayList<>();
+    private List<Producteur> producteurs;
     private int superficie;
     private Volume productionAnnuelle;
-    private Set<Couleur> couleurs = new HashSet<>();
-    private Set<TeneurEnSucre> teneursEnSucre = new HashSet<>();
-    private Set<Effervescence> effervescences = new HashSet<>();
-    private List<Cépage> cépages = new ArrayList<>();
+    private Set<Couleur> couleurs;
+    private Set<TeneurEnSucre> teneursEnSucre;
+    private Set<Effervescence> effervescences;
+    private List<Cépage> cépages;
 
     private Appellation() {
     }
@@ -79,6 +79,12 @@ public final class Appellation implements AppellationLec {
         return cépages;
     }
 
+    public Appellation update(Consumer<Builder> factory) {
+        Builder builder = new Builder(this);
+        factory.accept(builder);
+        return builder.build();
+    }
+
     public static Appellation create(Consumer<Builder> factory) {
         Builder builder = new Builder();
         factory.accept(builder);
@@ -87,18 +93,43 @@ public final class Appellation implements AppellationLec {
 
     public static final class Builder {
         private Appellation appellation = new Appellation();
+        private ListBuilder<Producteur> producteurs;
+        private SetBuilder<Couleur> couleurs;
+        private SetBuilder<TeneurEnSucre> teneursEnSucre;
+        private SetBuilder<Effervescence> effervescences;
+        private ListBuilder<Cépage> cépages;
 
         private Builder() {
+            producteurs = ListBuilder.of();
+            cépages = ListBuilder.of();
+            couleurs = SetBuilder.of();
+            teneursEnSucre = SetBuilder.of();
+            effervescences = SetBuilder.of();
+
+        }
+
+        private Builder(Appellation oldAppellation) {
+            this.appellation.nom = oldAppellation.nom;
+            this.appellation.description = oldAppellation.description;
+            this.appellation.nature = oldAppellation.nature;
+            this.appellation.région = oldAppellation.région;
+            this.appellation.superficie = oldAppellation.superficie;
+            this.appellation.productionAnnuelle = oldAppellation.productionAnnuelle;
+            producteurs = ListBuilder.of(oldAppellation.producteurs);
+            cépages = ListBuilder.of(oldAppellation.cépages);
+            couleurs = SetBuilder.of(oldAppellation.couleurs);
+            teneursEnSucre = SetBuilder.of(oldAppellation.teneursEnSucre);
+            effervescences = SetBuilder.of(oldAppellation.effervescences);
         }
 
         private Appellation build() {
             requireNonNull(appellation.nom);
 
-            appellation.producteurs = Collections.unmodifiableList(appellation.producteurs);
-            appellation.couleurs = Collections.unmodifiableSet(appellation.couleurs);
-            appellation.teneursEnSucre = Collections.unmodifiableSet(appellation.teneursEnSucre);
-            appellation.effervescences = Collections.unmodifiableSet(appellation.effervescences);
-            appellation.cépages = Collections.unmodifiableList(appellation.cépages);
+            appellation.producteurs = producteurs.build();
+            appellation.couleurs = couleurs.build();
+            appellation.teneursEnSucre = teneursEnSucre.build();
+            appellation.effervescences = effervescences.build();
+            appellation.cépages = cépages.build();
 
             return appellation;
         }
@@ -124,7 +155,12 @@ public final class Appellation implements AppellationLec {
         }
 
         public Builder addProducteur(Consumer<Producteur.Builder> producteur) {
-            appellation.producteurs.add(Producteur.create(producteur.andThen(p -> p.setAppellation(appellation))));
+            producteurs.add(Producteur.create(producteur.andThen(p -> p.setAppellation(appellation))));
+            return this;
+        }
+
+        public Builder updateProducteurs(Consumer<ListBuilder<Producteur>> factory) {
+            factory.accept(producteurs);
             return this;
         }
 
@@ -139,22 +175,44 @@ public final class Appellation implements AppellationLec {
         }
 
         public Builder addCouleur(Couleur couleur) {
-            appellation.couleurs.add(couleur);
+            couleurs.add(couleur);
+            return this;
+        }
+
+        public Builder updateCouleurs(Consumer<SetBuilder<Couleur>> factory) {
+            factory.accept(couleurs);
             return this;
         }
 
         public Builder addTeneurEnSucre(TeneurEnSucre teneurEnSucre) {
-            appellation.teneursEnSucre.add(teneurEnSucre);
+            teneursEnSucre.add(teneurEnSucre);
             return this;
         }
+
+        public Builder updateTeneursEnSucre(Consumer<SetBuilder<TeneurEnSucre>> factory) {
+            factory.accept(teneursEnSucre);
+            return this;
+        }
+
 
         public Builder addEffervescence(Effervescence effervescence) {
-            appellation.effervescences.add(effervescence);
+            effervescences.add(effervescence);
             return this;
         }
 
+        public Builder updateEffervescences(Consumer<SetBuilder<Effervescence>> factory) {
+            factory.accept(effervescences);
+            return this;
+        }
+
+
         public Builder addCépage(Cépage cépage) {
-            appellation.cépages.add(cépage);
+            cépages.add(cépage);
+            return this;
+        }
+
+        public Builder updateCépages(Consumer<ListBuilder<Cépage>> factory) {
+            factory.accept(cépages);
             return this;
         }
     }

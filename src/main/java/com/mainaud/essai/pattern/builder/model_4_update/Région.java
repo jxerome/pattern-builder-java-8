@@ -1,10 +1,8 @@
-package com.mainaud.essai.pattern.builder.model_3_lambda;
+package com.mainaud.essai.pattern.builder.model_4_update;
 
 import com.mainaud.essai.pattern.builder.api.RégionLec;
 import com.mainaud.essai.pattern.builder.model.Volume;
 
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 import java.util.function.Consumer;
@@ -15,9 +13,9 @@ public class Région implements RégionLec {
     private Région région;
     private int superficie;
     private Volume productionAnnuelle;
-    private List<Cépage> cépages = new ArrayList<>();
-    private List<Région> sousRégions = new ArrayList<>();
-    private List<Appellation> appellations = new ArrayList<>();
+    private List<Cépage> cépages;
+    private List<Région> sousRégions;
+    private List<Appellation> appellations;
 
     private Région() {
     }
@@ -62,6 +60,12 @@ public class Région implements RégionLec {
         return cépages;
     }
 
+    public Région update(Consumer<Builder> factory) {
+        Builder builder = new Builder(this);
+        factory.accept(builder);
+        return builder.build();
+    }
+
     public static Région create(Consumer<Builder> factory) {
         Builder builder = new Builder();
         factory.accept(builder);
@@ -70,16 +74,34 @@ public class Région implements RégionLec {
 
     public static final class Builder {
         private Région région = new Région();
+        private ListBuilder<Cépage> cépages;
+        private ListBuilder<Région> sousRégions;
+        private ListBuilder<Appellation> appellations;
 
-        private Builder() {
+        public Builder() {
+            cépages = ListBuilder.of();
+            sousRégions = ListBuilder.of();
+            appellations = ListBuilder.of();
         }
+
+        public Builder(Région oldRégion) {
+            this.région.nom = oldRégion.nom;
+            this.région.description = oldRégion.description;
+            this.région.région = oldRégion.région;
+            this.région.superficie = oldRégion.superficie;
+            this.région.productionAnnuelle = oldRégion.productionAnnuelle;
+            cépages = ListBuilder.of(oldRégion.cépages);
+            sousRégions = ListBuilder.of(oldRégion.sousRégions);
+            appellations = ListBuilder.of(oldRégion.appellations);
+        }
+
 
         private Région build() {
             Objects.requireNonNull(région.nom);
 
-            région.cépages = Collections.unmodifiableList(région.cépages);
-            région.sousRégions = Collections.unmodifiableList(région.sousRégions);
-            région.appellations = Collections.unmodifiableList(région.appellations);
+            région.cépages = cépages.build();
+            région.sousRégions = sousRégions.build();
+            région.appellations = appellations.build();
 
             return région;
         }
@@ -100,12 +122,23 @@ public class Région implements RégionLec {
         }
 
         public Builder addSousRégion(Consumer<Builder> sousRégion) {
-            région.sousRégions.add(Région.create(sousRégion.andThen(b -> b.setRégion(région))));
+            sousRégions.add(Région.create(sousRégion.andThen(b -> b.setRégion(région))));
             return this;
         }
 
+        public Builder updateSousRégions(Consumer<ListBuilder<Région>> factory) {
+            factory.accept(sousRégions);
+            return this;
+        }
+
+
         public Builder addAppellation(Consumer<Appellation.Builder> appellation) {
-            région.appellations.add(Appellation.create(appellation.andThen(a -> a.setRégion(région))));
+            appellations.add(Appellation.create(appellation.andThen(a -> a.setRégion(région))));
+            return this;
+        }
+
+        public Builder updateAppellations(Consumer<ListBuilder<Appellation>> factory) {
+            factory.accept(appellations);
             return this;
         }
 
@@ -120,8 +153,14 @@ public class Région implements RégionLec {
         }
 
         public Builder addCépage(Cépage cépage) {
-            région.cépages.add(cépage);
+            cépages.add(cépage);
             return this;
         }
+
+        public Builder updateCépages(Consumer<ListBuilder<Cépage>> factory) {
+            factory.accept(cépages);
+            return this;
+        }
+
     }
 }

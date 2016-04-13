@@ -68,6 +68,9 @@ public class Région implements RégionLec {
     public static final class Builder {
         private Région région = new Région();
 
+        private Builder() {
+        }
+
         public Région build() {
             Objects.requireNonNull(région.nom);
 

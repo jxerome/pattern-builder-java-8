@@ -1,4 +1,4 @@
-package com.mainaud.essai.pattern.builder.model_3_lambda;
+package com.mainaud.essai.pattern.builder.model_4_update;
 
 import com.mainaud.essai.pattern.builder.model.Volume;
 import com.mainaud.essai.pattern.builder.report.Afficheur;
@@ -9,6 +9,7 @@ import static com.mainaud.essai.pattern.builder.model.Couleur.*;
 import static com.mainaud.essai.pattern.builder.model.Effervescence.*;
 import static com.mainaud.essai.pattern.builder.model.NatureAppellation.AOC;
 import static com.mainaud.essai.pattern.builder.model.TeneurEnSucre.BRUT;
+import static com.mainaud.essai.pattern.builder.model.TeneurEnSucre.MOELLEUX;
 import static com.mainaud.essai.pattern.builder.model.TeneurEnSucre.SEC;
 import static com.mainaud.essai.pattern.builder.model.Volume.Unité.HL;
 
@@ -145,8 +146,43 @@ public class Main {
             )
         );
 
+
+        Région régionModifiée = valléeLoire.update(v -> v
+            .addCépage(chenin)
+            .addCépage(cabernetFranc)
+            .addCépage(cabernetSauvignon)
+            .updateSousRégions(régions -> régions
+                .updateIf(
+                    région -> "Touraine".equals(région.getNom()),
+                    région -> région.update(touraine -> touraine
+                            .updateAppellations(appellations -> appellations
+                                .updateIf(
+                                    appellation -> "Vouvray".equals(appellation.getNom()),
+                                    appellation -> appellation.update(
+                                        vouvray -> vouvray.updateProducteurs(producteurs -> producteurs.updateIf(
+                                            producteur -> "Vigneau-Chevreau".equals(producteur.getNom()),
+                                            producteur -> producteur.update(vigneauChevreau -> vigneauChevreau
+                                                .addVin(mœlleux -> mœlleux
+                                                    .setNom("Château Gaillard - Clos Baglin")
+                                                    .setDescription("Ces cuvées moelleuses sont issues de nos meilleurs terroirs et de nos plus vieilles vignes.")
+                                                    .setCouleur(BLANC)
+                                                    .setEffervescence(TRANQUILLE)
+                                                    .setTeneurEnSucre(MOELLEUX)
+                                                    .addCépage(chenin)
+                                                    .setPrix(24.50)
+                                                )
+                                            )
+                                        ))
+                                    )
+                                )
+                    ))
+            ))
+        );
+
+
+
         try (Afficheur afficheur = new Afficheur(System.out)) {
-            afficheur.printRégion(valléeLoire);
+            afficheur.printRégion(régionModifiée);
         }
     }
 }

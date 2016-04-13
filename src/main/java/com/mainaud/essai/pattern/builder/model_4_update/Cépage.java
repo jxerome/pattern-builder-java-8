@@ -1,4 +1,4 @@
-package com.mainaud.essai.pattern.builder.model_3_lambda;
+package com.mainaud.essai.pattern.builder.model_4_update;
 
 import com.mainaud.essai.pattern.builder.api.CépageLec;
 
