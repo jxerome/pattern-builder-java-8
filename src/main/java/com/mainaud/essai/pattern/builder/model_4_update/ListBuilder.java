@@ -7,7 +7,7 @@ import java.util.ListIterator;
 import java.util.function.Predicate;
 import java.util.function.UnaryOperator;
 
-public class ListBuilder<E> {
+public final class ListBuilder<E> {
     private List<E> oldData;
     private List<E> data;
 

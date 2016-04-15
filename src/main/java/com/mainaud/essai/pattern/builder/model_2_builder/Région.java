@@ -8,7 +8,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
-public class Région implements RégionLec {
+public final class Région implements RégionLec {
     private String nom;
     private String description;
     private Région région;

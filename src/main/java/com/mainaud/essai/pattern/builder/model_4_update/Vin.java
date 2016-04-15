@@ -8,7 +8,7 @@ import com.mainaud.essai.pattern.builder.model.TeneurEnSucre;
 import java.util.*;
 import java.util.function.Consumer;
 
-public class Vin implements VinLec {
+public final class Vin implements VinLec {
     private String nom;
     private String description;
     private Producteur producteur;
