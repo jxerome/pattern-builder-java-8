@@ -1,7 +1,7 @@
 # Le pattern builder  
 
 Ce dépôt contient les sources et les transparents qui ont été utilisée pour le
-quickie « Le pattern builder à l'heure de Java 8 ».
+quickie «&nbsp;Le pattern builder à l'heure de Java&nbsp;8&nbsp;».
 
 La présentation peut être lue sur YouTube : https://youtu.be/68tjJayboUA
 
